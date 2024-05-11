@@ -291,11 +291,31 @@ from customer3 c inner join order3 o on c.id = o.customer_id;
 select c.first_name, c.last_name, o.delivery_address , o.total_amount
 from customer3 c left join order3 o on c.id = o.customer_id;
 
--- left join (Customers 
--- all data in customer3 retains in the result set.
+-- left join (Customers without orders)
+-- similar to "not exists"
 select c.first_name, c.last_name, o.delivery_address , o.total_amount
 from customer3 c left join order3 o on c.id = o.customer_id
 where o.customer_id is null;
 
 -- -> with foreign key: you cant add a child row with foreign key value not exists in parent primary key column
 -- insert into order3 values (5, [4], 'XYZ', 90.12); --> [] no customer 4
+
+-- Union / unionall
+select 'hello' as abc from dual
+union 
+select 'goodbye' as abc from dual; 
+
+-- unionall: append all the result set, ni matter it has duplicated record
+select 'hello' as abc from dual
+union all
+select 'goodbye' as abc from dual; 
+
+-- union: append the result set, remove duplicated record
+select 'hello' as abc from dual
+union 
+select 'hello' as abc from dual; 
+
+create table student2(
+  id integer primary key auto_increment,
+  name varchar(20)
+  )
